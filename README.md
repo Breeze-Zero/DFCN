@@ -6,11 +6,11 @@ DFCN is a recent work on Multi-slice MRI reconstruction. According to the inform
 
 ### Abstract
 
-![./figures/figure1.png]()
+![figure1](./figures/figure1.png)
 
 Recently, magnetic resonance imaging (MRI) reconstruction based on deep learning has become popular. Nevertheless, reconstruction of highly undersampled MR images is still challenging due to severe aliasing effects. In this study we built a deep fusion connection network (DFCN) to efficiently utilize the correlation information between adjacent slices. The proposed method was evaluated with online public IXI dataset and Calgary-Campinas-359 dataset. The results show that DFCN can generate the best reconstruction images in de-aliasing and restoring tissue structure compared with several state-of-the-art methods. The mean value of the peak signal-to-noise ratio could reach 34.16 dB, the mean value of the structural similarity is 0.9626, and the mean value of the normalized mean square error is 0.1144 on T2-weighted brain data of IXI dataset under 10× acceleration. Additionally, the mean value of the peak signal-to-noise ratio could reach 30.17 dB, the mean value of the structural similarity is 0.9259, and the mean value of the normalized mean square error is 0.1294 on T1-weighted brain data of Calgary-Campinas-359 dataset under 10× acceleration. With the correlation information between adjacent slices as prior knowledge, our method can dramatically eliminate aliasing effects and enhance the reconstruction quality of undersampled MR images.
 
-![./figures/figure2.png]()
+![figure2](./figures/figure2.png)
 
 ### Usage
 
