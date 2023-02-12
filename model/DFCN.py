@@ -134,7 +134,7 @@ class Inference_Block_single(nn.Module):
 
     def soft_dc(self, x, mask,input_kspace):
         x = fastmri.fft2c(x)
-        x = torch.where(mask, x - input_kspace, self.zero)* self.lambda_
+        x = x - torch.where(mask, x - input_kspace, self.zero)* self.lambda_
         x = fastmri.ifft2c(x)
         return x
 
@@ -169,7 +169,7 @@ class Inference_Block_single(nn.Module):
         x = self.chan_complex_to_last_dim(x) ## to b, z, h, w, two
         # num_slices = x.shape[1]
         #x = x - torch.cat([self.soft_dc(x[:,i:i+1],mask[:,:,i],input_kspace[:,:,i],sens_maps[:,:,i]) for i in range(num_slices)],dim=1)  ##  b, z, h, w, two
-        x = x - self.soft_dc(x,mask,input_kspace)
+        x = self.soft_dc(x,mask,input_kspace)
         x = self.complex_to_slice_dim(x) ## to b, 2z, h, w
 
         return x
