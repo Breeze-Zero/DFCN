@@ -17,16 +17,26 @@ Recently, magnetic resonance imaging (MRI) reconstruction based on deep learning
 ```python
 import torch
 from model.MSMC_model import MSMC_model
-from model.DFCN import DFCN
+from model.DFCN import DFCN,DFCN_single
 
 ## Please refer to fastmri for data processing
-mask_kspace = torch.randn(2, 16, 7, 256, 256,2)  ## batch,coil,slices,h,w,2
-mask = torch.randn(2, 16, 7, 256, 256,2)  ## batch,coil,slices,h,w,2  dtype is bool
+## Here is Multi-coil version
+mask_kspace = torch.randn(2, 16, 7, 128, 128,2)  ## batch,coil,slices,h,w,2
+mask = torch.ones(2, 16, 7, 128, 128,2).to(torch.bool)  ## batch,coil,slices,h,w,2  dtype is bool
 
 model = MSMC_model(DFCN(slices=7),sens_chans=8,sens_pools=4)
 recon = model(mask_kspace,mask)
 print(model)
-print(recon)
+print(recon.shape)
+
+## Let's try single coil version (original DFCN) 
+mask_kspace = torch.randn(2, 1, 7, 128, 128,2)  ## batch,coil,slices,h,w,2
+mask = torch.ones(2, 1, 7, 128, 128,2).to(torch.bool)  ## batch,coil,slices,h,w,2  dtype is bool
+
+model = DFCN_single(slices=7)
+recon = model(mask_kspace,mask)
+print(model)
+print(recon.shape)
 ```
 
 Tips: I did not provide the complete training and testing code. I believe that for most students looking for open source code (at least for me), the data processing of many MRI reconstruction open source code is always so tedious and the data forms are so diverse that we usually have to look at the data processing code for a long time to understand what data to input into the model. And they name variables so casually. Even some only give the processed sample data, we have to download and interpret, these are too troublesome. We just want to apply it to our own data.😔
